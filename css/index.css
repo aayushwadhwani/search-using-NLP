@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+p, h2 {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+h2 {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
