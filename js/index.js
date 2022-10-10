@@ -20,16 +20,31 @@ for (let i = 0; i < divs.length; i++) {
 
 for (let i = 0; i < afterPreProcessing.length; i++) {
   afterPreProcessing[i].content.remove_html();
+  afterPreProcessing[i].content.remove_special_chars();
   afterPreProcessing[i].content.remove_spaces();
-  afterPreProcessing[i].content.lowe_case();
+  afterPreProcessing[i].content.word_tokens();
+  afterPreProcessing[i].content.lower_case();
   afterPreProcessing[i].content.stem();
   afterPreProcessing[i]["tokens"] = afterPreProcessing[i].content.text;
-  console.log(afterPreProcessing[i].tokens);
+  afterPreProcessing[i].tokens;
   delete afterPreProcessing[i].content;
 }
 
+const unique_words_set = new Set();
+
+for(let i=0; i<afterPreProcessing.length; i++) {
+  let len = afterPreProcessing[i]["tokens"].length;
+  for(let j=0; j<len; j++) {
+    unique_words_set.add(afterPreProcessing[i]["tokens"][j])
+  }
+}
+const unique_words = [...unique_words_set];
+console.log(unique_words);
+const t = new TfIdf(afterPreProcessing, "", unique_words).get_scores();
+console.log(t);
+
 button.addEventListener("click", (e) => {
-  const search_for = document.getElementById("text").value;
+  const search_for = document.getElementById("text").value.trim();
   // console.log(search_for);
   let algo = document.getElementById("algo").value;
   // console.log(algo);
